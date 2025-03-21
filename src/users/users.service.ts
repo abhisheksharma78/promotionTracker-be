@@ -53,10 +53,23 @@ export class UsersService {
   }
 
   async validateUser(email: string, password: string): Promise<User | null> {
-    const user = await this.findByEmail(email);
-    if (user && await bcrypt.compare(password, user.password)) {
+    try {
+      const user = await this.findByEmail(email);
+      if (!user) {
+        console.log(`User with email ${email} not found`);
+        return null;
+      }
+
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (!isPasswordValid) {
+        console.log(`Invalid password for user ${email}`);
+        return null;
+      }
+
       return user;
+    } catch (error) {
+      console.error('Error validating user:', error);
+      return null;
     }
-    return null;
   }
 }

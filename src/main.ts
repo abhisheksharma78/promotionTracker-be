@@ -11,7 +11,7 @@ async function bootstrap() {
     credentials: true,
   });
 
-  // Enable validation pipes
+  // Enable validation pipes and class serialization
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
     transform: true,
