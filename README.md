@@ -25,36 +25,117 @@
 
 A NestJS backend application for managing employee promotions, appraisals, and bonuses.
 
-## Prerequisites
+## System Requirements
 
-- Node.js (v16 or higher)
-- PostgreSQL (v12 or higher)
-- npm (v7 or higher)
+1. **Core Requirements**
+   - Node.js >= 20.x
+   - npm >= 9.x
+   - PostgreSQL >= 16.x
+   - NestJS CLI: `npm i -g @nestjs/cli`
 
-## Project Setup
+2. **Development Tools**
+   - Git
+   - VS Code (recommended) with extensions:
+     - ESLint
+     - Prettier
+     - TypeScript and JavaScript
 
-1. Clone the repository
-2. Install dependencies:
-```bash
-npm install
-```
+3. **Database Tools**
+   - PostgreSQL client (psql)
+   - Database management tool (optional):
+     - pgAdmin
+     - DBeaver
+     - DataGrip
 
-3. Create a PostgreSQL database and user:
-```sql
-CREATE DATABASE promotion_tracker;
-CREATE USER promotion_user WITH PASSWORD 'your_password';
-GRANT ALL PRIVILEGES ON DATABASE promotion_tracker TO promotion_user;
-```
+## Installation Methods
 
-4. Create a `.env` file in the root directory with the following content:
-```env
-DATABASE_HOST=localhost
-DATABASE_PORT=5432
-DATABASE_USER=promotion_user
-DATABASE_PASSWORD=your_password
-DATABASE_NAME=promotion_tracker
-JWT_SECRET=your_jwt_secret_key
-```
+### Method 1: Docker Setup (Recommended)
+
+1. Install Docker and Docker Compose
+   ```bash
+   # For Ubuntu/Debian
+   sudo apt-get update
+   sudo apt-get install docker.io docker-compose
+
+   # For macOS (using Homebrew)
+   brew install docker docker-compose
+   ```
+
+2. Clone the repository and start services:
+   ```bash
+   git clone <repository-url>
+   cd promotionTracker-be
+   docker-compose up -d
+   ```
+
+This will automatically:
+- Start PostgreSQL database
+- Set up the database with correct user and permissions
+- Build and start the backend API
+- Build and start the frontend application
+
+### Method 2: Manual Setup
+
+1. **Install Node.js and npm**
+   ```bash
+   # Using nvm (recommended)
+   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+   nvm install 20
+   nvm use 20
+   ```
+
+2. **Install PostgreSQL**
+   ```bash
+   # For Ubuntu/Debian
+   sudo apt-get update
+   sudo apt-get install postgresql postgresql-contrib
+
+   # For macOS
+   brew install postgresql
+   brew services start postgresql
+   ```
+
+3. **Install NestJS CLI**
+   ```bash
+   npm install -g @nestjs/cli
+   ```
+
+4. **Setup Database**
+   ```sql
+   CREATE DATABASE promotion_tracker;
+   CREATE USER promotion_user WITH PASSWORD 'your_password';
+   GRANT ALL PRIVILEGES ON DATABASE promotion_tracker TO promotion_user;
+   ```
+
+5. **Configure Environment**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your database credentials
+   ```
+
+6. **Install Dependencies & Start Server**
+   ```bash
+   npm install
+   npm run start:dev
+   ```
+
+## Default Admin Setup
+
+The system is preconfigured with an admin user:
+- Email: admin@example.com
+- Password: admin123
+- Role: ADMIN
+
+## Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| DATABASE_HOST | PostgreSQL host | localhost |
+| DATABASE_PORT | PostgreSQL port | 5432 |
+| DATABASE_USER | Database username | promotion_user |
+| DATABASE_PASSWORD | Database password | - |
+| DATABASE_NAME | Database name | promotion_tracker |
+| JWT_SECRET | Secret for JWT tokens | - |
 
 ## Running the Application
 
